@@ -1,156 +1,173 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const busSchema = new Schema({
+const busSchema = new Schema(
+  {
     idBus: {
-        type: String,
+      type: String,
     },
     vechileType: {
-        type: String,
-        required: [true, 'Please input your vechileType']
+      type: String,
+      required: [true, "Please input your vechileType"],
     },
     policeNo: {
-        type: String,
-        required: [true, 'Please input your policeNo']
+      type: String,
+      required: [true, "Please input your policeNo"],
     },
+    imageUrl: [
+      {
+        url: String,
+        status: {
+          type: String,
+          default: "done",
+        },
+        isCover: {
+          type: Boolean,
+          default: false,
+        },
+      },
+    ],
+
     firstAid: {
-        type: Number
+      type: Number,
     },
     frontPlate: {
-        type: Number
+      type: Number,
     },
     rearPlate: {
-        type: Number
+      type: Number,
     },
     inspectionBook: {
-        type: Number
+      type: Number,
     },
     spareTire: {
-        type: Number
+      type: Number,
     },
     headLightRight: {
-        type: Number
+      type: Number,
     },
     headLightLeft: {
-        type: Number
+      type: Number,
     },
     frontFlaserLightRight: {
-        type: Number
+      type: Number,
     },
     frontFlaserLightLeft: {
-        type: Number
+      type: Number,
     },
     rearFlaserLightRight: {
-        type: Number
+      type: Number,
     },
     rearFlaserLightLeft: {
-        type: Number
+      type: Number,
     },
     stopLightRight: {
-        type: Number
+      type: Number,
     },
     stopLightLeft: {
-        type: Number
+      type: Number,
     },
     backupLightRight: {
-        type: Number
+      type: Number,
     },
     backupLightLeft: {
-        type: Number
+      type: Number,
     },
     platLight: {
-        type: Number
+      type: Number,
     },
     hazardLight: {
-        type: Number
+      type: Number,
     },
     horn: {
-        type: Number
+      type: Number,
     },
     safetyBeltFront: {
-        type: Number
+      type: Number,
     },
     safetyBeltBack: {
-        type: Number
+      type: Number,
     },
     handBreake: {
-        type: Number
+      type: Number,
     },
     cabinMirror: {
-        type: Number
+      type: Number,
     },
     fireExtiungiser: {
-        type: Number
+      type: Number,
     },
     jack: {
-        type: Number
+      type: Number,
     },
     jackHandle: {
-        type: Number
+      type: Number,
     },
     tireWrech: {
-        type: Number
+      type: Number,
     },
     fanBelt: {
-        type: Number
+      type: Number,
     },
     triangle: {
-        type: Number
+      type: Number,
     },
     cutterMirrorRight: {
-        type: Number
+      type: Number,
     },
     cutterMirrorLeft: {
-        type: Number
+      type: Number,
     },
     engineOil: {
-        type: Number
+      type: Number,
     },
     radiatorCooling: {
-        type: Number
+      type: Number,
     },
     brakeOil: {
-        type: Number
+      type: Number,
     },
     wiperWater: {
-        type: Number
+      type: Number,
     },
     liquidBAttery: {
-        type: Number
+      type: Number,
     },
     airConditioner: {
-        type: Number
+      type: Number,
     },
     tirePreasureTester: {
-        type: Number
+      type: Number,
     },
     tirePreasureFront: {
-        type: Number
+      type: Number,
     },
-    tirePreasureRear:{
-        type: Number
+    tirePreasureRear: {
+      type: Number,
     },
     others: {
-        type: String
+      type: String,
     },
     inspectionBy: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
     status: {
-        type: Boolean,
-        default: false
+      type: Boolean,
+      default: false,
     },
     result: {
-        type: String,
+      type: String,
     },
     deleteAt: {
-        type: Date,
-        default: null
-    }
-},{
-    timestamps: true
-})
+      type: Date,
+      default: null,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const Bus = mongoose.model('Bus', busSchema)
-module.exports = Bus
+const Bus = mongoose.model("Bus", busSchema);
+module.exports = Bus;
