@@ -140,7 +140,7 @@ module.exports = {
         tirePreasureRear: req.body.tirePreasureRear,
         others: req.body.others,
         status: true,
-        inspectionBy: req.decoded.id,
+        inspectionBy: req.body.inspectionBy,
       }
     )
       .then((response) => {
