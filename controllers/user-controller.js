@@ -36,9 +36,7 @@ module.exports = {
 
   signup: (req, res) => {
     const { username, password, name, address, contact } = req.body;
-    console.log("====================================");
-    console.log(req.body);
-    console.log("====================================");
+
     User.find({ username })
       .then((result) => {
         if (result.length === 0) {

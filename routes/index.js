@@ -4,10 +4,12 @@ const user = require("./users");
 const technician = require("./technician");
 const bus = require("./bus");
 const upload = require("./upload");
+const schedule = require("./schedule");
 
 router.use("/api/users", user);
 router.use("/api/technician", technician);
 router.use("/api/bus", bus);
 router.use("/api/upload", upload);
+router.use("/api/schedule", schedule);
 
 module.exports = router;

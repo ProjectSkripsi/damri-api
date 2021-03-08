@@ -14,6 +14,12 @@ const busSchema = new Schema(
       type: String,
       required: [true, "Please input your policeNo"],
     },
+    scheduled: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Schedule",
+      },
+    ],
     imageUrl: [
       {
         url: String,
