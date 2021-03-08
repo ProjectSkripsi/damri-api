@@ -17,7 +17,7 @@ const {
 router.get("/buses", getBuses);
 router.post("/", isLogin, isAdmin, addBus);
 router.get("/findtrue", isLogin, isAdmin, findStatus);
-router.get("/:id", isLogin, isAdmin, findBus);
+router.get("/:id", findBus);
 router.get("/", isLogin, findAll);
 router.delete("/:id", isLogin, isAdmin, deleteBus);
 router.put("/:id", isLogin, isAdmin, editBus);
