@@ -7,8 +7,12 @@ const {
   getUser,
   getAll,
   removeUser,
+  addTechnician,
+  updateTech,
 } = require("../controllers/user-controller");
 
+router.post("/add-technician", isLogin, isAdmin, addTechnician);
+router.post("/update-technician/:_id", isLogin, isAdmin, updateTech);
 router.post("/signin", signin);
 router.post("/signup", signup);
 router.get("/", isLogin, getUser);

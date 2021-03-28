@@ -36,7 +36,6 @@ module.exports = {
 
   signup: (req, res) => {
     const { username, password, name, address, contact } = req.body;
-
     User.find({ username })
       .then((result) => {
         if (result.length === 0) {
@@ -93,7 +92,7 @@ module.exports = {
 
   getAll: (req, res) => {
     User.find({
-      role: "member",
+      role: "technician",
     })
       .then((response) => {
         res.status(200).json(response);
@@ -113,5 +112,72 @@ module.exports = {
       .catch((err) => {
         res.status(500).json(err);
       });
+  },
+
+  addTechnician: (req, res) => {
+    User.findOne({
+      username: req.body.username,
+    })
+      .then((response) => {
+        if (response === null) {
+          User.create({
+            name: req.body.name,
+            username: req.body.username,
+            password: req.body.password,
+            address: req.body.address,
+            contact: req.body.contact,
+            role: "technician",
+          })
+            .then((result) => {
+              res.status(201).json({
+                err: false,
+                message: `Success add ${result.name}`,
+                data: result,
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+              res.status(500).json({
+                message: `Please input incorrect`,
+              });
+            });
+        } else {
+          res.status(400).json({
+            message: "username already registered!",
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({
+          data: err,
+          msg: `Error Server`,
+        });
+      });
+  },
+
+  updateTech: async (req, res) => {
+    const { _id } = req.params;
+    const { name, username, address, contact, role } = req.body;
+    try {
+      const response = await User.findByIdAndUpdate(
+        {
+          _id,
+        },
+        {
+          name,
+          username,
+          address,
+          contact,
+          role,
+        }
+      );
+      res.status(200).json(response);
+    } catch (error) {
+      res.status(500).json({
+        data: err,
+        msg: `Something wrong`,
+      });
+    }
   },
 };

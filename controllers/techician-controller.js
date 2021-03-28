@@ -23,6 +23,7 @@ module.exports = {
               });
             })
             .catch((err) => {
+              console.log(err);
               res.status(500).json({
                 message: `Please input incorrect`,
               });
@@ -34,6 +35,7 @@ module.exports = {
         }
       })
       .catch((err) => {
+        console.log(err);
         res.status(500).json({
           data: err,
           msg: `Error Server`,
