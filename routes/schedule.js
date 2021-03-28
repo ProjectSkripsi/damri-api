@@ -14,4 +14,5 @@ router.get("/:id", getScheduleById);
 router.get("/", getSchedule);
 router.delete("/:id", isLogin, isAdmin, deleteSchedule);
 router.post("/add", isLogin, isAdmin, addSchedule);
+
 module.exports = router;

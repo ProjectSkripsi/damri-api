@@ -75,20 +75,24 @@ module.exports = {
   },
 
   editBus: (req, res) => {
+    const { imageUrl, idBus, vechileType, policeNo } = req.body;
+
     Bus.findByIdAndUpdate(
       {
         _id: req.params.id,
       },
       {
-        idBus: req.body.idBus,
-        vechileType: req.body.vechileType,
-        policeNo: req.body.policeNo,
+        idBus,
+        vechileType,
+        policeNo,
+        imageUrl,
       }
     )
       .then((response) => {
         res.status(200).json(response);
       })
       .catch((err) => {
+        console.log(err);
         res.status(500).json(err);
       });
   },

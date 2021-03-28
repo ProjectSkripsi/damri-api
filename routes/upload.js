@@ -28,7 +28,7 @@ router.post(
   function (req, res) {
     // const fullUrl = req.protocol;
     // const { host } = req.headers;
-    const urlFile = `https://damri-mks.herokuapp.com/images/${req.file.filename}`;
+    const urlFile = `http://localhost:4000/images/${req.file.filename}`;
     res.send({
       status: 200,
       message: "Your file is successfully uploaded",
