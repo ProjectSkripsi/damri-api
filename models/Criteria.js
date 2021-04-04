@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const criteriaSchema = new Schema(
@@ -10,6 +10,9 @@ const criteriaSchema = new Schema(
       type: String,
     },
     initialWeight: {
+      type: Number,
+    },
+    oldWeight: {
       type: Number,
     },
     repairWeight: {
@@ -25,5 +28,5 @@ const criteriaSchema = new Schema(
   }
 );
 
-const Criteria = mongoose.model("Criteria", criteriaSchema);
+const Criteria = mongoose.model('Criteria', criteriaSchema);
 module.exports = Criteria;

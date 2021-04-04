@@ -28,6 +28,7 @@ module.exports = {
   updateCriteria: async (req, res) => {
     const { name, alias, initialWeight } = req.body;
     const { _id } = req.params;
+    const old = initialWeight;
     try {
       const response = await Criteria.findByIdAndUpdate(
         { _id },
@@ -35,6 +36,7 @@ module.exports = {
           name,
           alias,
           initialWeight,
+          oldWeight: old,
         },
         {
           returnOriginal: false,
