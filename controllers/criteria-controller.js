@@ -72,7 +72,7 @@ module.exports = {
     const result = [];
     const dummy = await getCriterias();
     const eMax = dummy.find((item) => item.name === 'E-max').initialWeight;
-    var totalError = 5;
+    var totalError = 1;
     var totalWeightError;
     const dataTemp = await DataTraining.find({ deleteAt: null });
     const dataLearning = [];
@@ -91,22 +91,26 @@ module.exports = {
         console.log('running');
         let destination = 0;
         const items = dataLearning[key];
+        const wInput = [];
         for (const i in items) {
           if (items[i].alias === 'target') {
             destination = items[i].initialWeight;
           } else {
             wnxn.push({
+              alias: _.get(data[i], 'alias', ''),
               initialWeight:
                 _.get(items[i], 'initialWeight', 0) *
                 _.get(data[i], 'initialWeight', 0),
             });
           }
+          wInput.push(items[i]);
         }
         console.log('running');
         const yIn = sumNumber(wnxn);
         const yOut = 1 / (1 + Math.exp(-yIn));
         const weightError = destination - yOut;
         const wNew = [];
+
         for (const keys of data) {
           const numInitial = calculateNewWeight(
             keys.initialWeight,
@@ -121,6 +125,7 @@ module.exports = {
           wNew.push({
             _id: keys._id,
             initialWeight: Number(numInitial.toFixed(2)),
+            alias: keys.alias,
           });
         }
         if (Number(key) === iterations - 1) {
@@ -138,12 +143,14 @@ module.exports = {
           totalError = Number(totE.toFixed(2));
         }
         result.push({
+          name: dataTemp[key].name,
           totalError,
           yIn,
           yOut: Number(yOut.toFixed(2)),
           weightError: Number(weightError.toFixed(2)),
           wnxn,
           wNew,
+          wInput,
         });
       }
     }
@@ -160,9 +167,13 @@ module.exports = {
       );
     }
 
-    res
-      .status(200)
-      .json({ data: dummy, totalWeightError, count: result.length, result });
+    res.status(200).json({
+      iterations: result.length,
+      dataLearning: dataLearning.length,
+      result,
+      data: dummy,
+      totalWeightError,
+    });
   },
 
   addDataTraining: async (req, res) => {
