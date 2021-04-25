@@ -159,6 +159,7 @@ module.exports = {
 
     const oldWeight = result[0].wNew;
     const newWight = result[result.length - 1].wNew;
+    let newKelJal = 0;
     for (const i in oldWeight) {
       const updated = await Criteria.findByIdAndUpdate(
         { _id: oldWeight[i]._id },
@@ -167,7 +168,22 @@ module.exports = {
           repairWeight: newWight[i].initialWeight,
         }
       );
+      newKelJal += newWight[i].initialWeight;
     }
+
+    const newKelayakan = newKelJal * 0.7;
+    const toFixNum = Number(newKelayakan.toFixed(2));
+
+    const updatedKelayakan = await Criteria.findByIdAndUpdate(
+      { _id: '6068d7146a63e245f13e35a2' },
+      {
+        initialWeight: toFixNum,
+        oldWeight: toFixNum,
+      },
+      {
+        returnOriginal: false,
+      }
+    );
 
     res.status(200).json({
       iterations: result.length,
