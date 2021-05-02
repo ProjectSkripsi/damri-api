@@ -1,5 +1,6 @@
 const Schedule = require("../models/Schedule");
 const Bus = require("../models/Bus");
+const { get } = require("lodash");
 
 module.exports = {
   addSchedule: async (req, res) => {
@@ -20,11 +21,15 @@ module.exports = {
 
   getSchedule: async (req, res) => {
     try {
-      const response = await Schedule.find({ deleteAt: null }).populate(
-        "busId"
-      );
-      res.status(200).json(response);
+      const response = await Schedule.find({ deleteAt: null }).populate({
+        path: "busId",
+        result: { $ne: null },
+      });
+      let data = response;
+      const result = data.filter((item) => !!get(item, "busId.result", ""));
+      res.status(200).json(result);
     } catch (error) {
+      console.log(error);
       res.status(500).json(error);
     }
   },
